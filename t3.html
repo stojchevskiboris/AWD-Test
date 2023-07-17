@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3</title>
+</head>
+<body>
+<!--?enablejsapi=1&origin=http://example.com-->
+<iframe id="player" type="text/html" width="640" height="390"
+        src="http://www.youtube.com/embed/M7lc1UVf-VE"
+        frameborder="0"></iframe>
+</body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('watch');
+    document.getElementById('player').src = 'http://www.youtube.com/embed/' + myParam
+
+</script>
+</html>

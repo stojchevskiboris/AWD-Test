@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueTube</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-2 text-center hd1">
+            <a href="./t2.html">VueTube</a>
+        </div>
+        <div class="col input-group mb-3">
+            <input id="in1" type="search" class="form-control form-control-lg" onfocus="focusFunc()" placeholder="Search">
+            <button id="bt1" onclick="call()" class="btn btn-outline-primary btn-lg" type="button">Search</button>
+        </div>
+    </div>
+
+
+    <div class="row" id="ttt"></div>
+</div>
+</body>
+
+
+<script>
+    function call(query) {
+        document.getElementById('in1').blur()
+        var search = document.getElementById('in1').value
+        if (query != undefined)
+            search = query
+        if (search == undefined || search == "")
+            return
+        // Make an HTTP GET request to the YouTube Data API search endpoint
+        var apiKey = ""
+        var apiKey1 = 'AIzaSyB5LG4TFaO95eqkE6yRBgJgr0egwSBSy8U'
+        var apiKey2 = 'AIzaSyD1HX-in66XEtm57Ig6S2JJDQ56uXr5c2s'
+        var apiKey3 = 'AIzaSyAdv9_oNyCgRE_coy3QYLlIG05bBqznx80'
+        var num = Math.random()
+        if (num < 0.33)
+            apiKey = apiKey1
+        else if (num < 0.66)
+            apiKey = apiKey2
+        else apiKey = apiKey3
+        var q = []
+        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=16`) // maxResults=50
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                // Iterate over the retrieved videos
+                data.items.forEach((item, i) => {
+
+                    var obj = {
+                        isChannel: false,
+                        title: item.snippet.title,
+                        thumbnailUrl: item.snippet.thumbnails.high.url,
+                        publishedAt: item.snippet.publishedAt
+                    }
+                    if (item.id.kind === "youtube#channel") {
+                        obj.isChannel = true
+                        obj.channelURL = `https://www.youtube.com/channel/${item.id.channelId}`
+                    } else {
+                        obj.watch = item.id.videoId
+                        obj.videoURL = `https://www.youtube.com/watch?v=${item.id.videoId}`;
+                        obj.channelURL = `https://www.youtube.com/channel/${item.snippet.channelId}`
+                        obj.chTitle = item.snippet.channelTitle;
+                    }
+                    if (obj.isChannel || (!obj.isChannel && obj.watch !== undefined)) {
+                        q.push(obj)
+                    }
+
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        setTimeout(function () {
+            text = ""
+            for (let x in q) {
+                var vidLink = ""
+                var end = ""
+                var isVideo = ""
+                var chLink = ""
+                var openVideo = "./t3.html?watch=" + q[x].watch
+                if (!q[x].isChannel) {
+
+                    isVideo = '<a href="' + q[x].channelURL + '">' + q[x].chTitle + '</a>'
+                    vidLink = '<a href="' + openVideo + '">' //q[x].videoURL
+                    end = "</a>"
+                } else {
+                    chLink = '<a href=" ' + q[x].channelURL + '">'
+                    end = "</a>"
+                }
+
+
+                text += '<div class="col mb-4">\n' +
+                    '            <div class="card" style="width: 18rem;">\n' +
+                    '                ' + vidLink + '<img src="' + q[x].thumbnailUrl + '" class="card-img-top" alt="...">' + end + '\n' +
+                    '                <div class="card-body">\n' +
+                    '                    ' + vidLink + chLink + '<h5 class="card-title">' + q[x].title + '</h5>' + end + '\n' +
+                    isVideo +
+                    '                    <p class="card-text text-end">' + q[x].publishedAt.slice(0,10) + '</p>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>'
+
+
+                document.getElementById("ttt").innerHTML = text
+
+            }
+
+        }, 800)
+    }
+
+    document.getElementById("bt1").onclick = function () {
+        call()
+    }
+    function focusFunc() {
+        var input = document.getElementById("in1");
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                call()
+            }
+        });
+    }
+
+
+    call("vue")
+</script>
+<style>
+    .hd1 a {
+        text-decoration: none;
+
+    }
+
+    .hd1 {
+        font-size: 2rem;
+        color: blue;
+        display: contents;
+    }
+
+    .col {
+        text-align: -moz-center;
+        text-align: -webkit-center;
+    }
+
+    .card {
+        text-align: left;
+        height: 100%;
+    }
+</style>
+</html>
+
