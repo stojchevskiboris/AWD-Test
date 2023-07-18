@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VueTube</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link href="bootstrap/bootstrap-5.3.0.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="bootstrap/bootstrap-5.3.0.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script
+            src="bootstrap/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<div class="container">
+
+
+    <iframe id="player" type="text/html" width="640" height="390"
+            src="http://www.youtube.com/embed/M7lc1UVf-VE"
+            frameborder="0"></iframe>
+    <div id="footer"></div>
+</div>
+</body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('watch');
+    document.getElementById('player').src = 'http://www.youtube.com/embed/' + myParam
+
+    $(function () {
+        $("#footer").load("footer.html");
+    });
+</script>
+<style>
+    .ytp-impression-link, .ytp-impression-link-content {
+        display: none;
+    }
+</style>
+</html>
