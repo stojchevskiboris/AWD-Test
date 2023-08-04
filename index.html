@@ -19,18 +19,12 @@
 <br>
 <div class="container">
 
-    <div class="row mb-4">
-        <div class="col-2 text-center hd1">
-            <a href="./index.html">VueTube</a>
-        </div>
-        <div class="col input-group mb-3">
-            <input id="searchInput" type="search" class="form-control form-control-lg" onfocus="focusFunc()"
-                   placeholder="Search">
-            <button id="bt1" onclick="call()" class="btn btn-outline-primary btn-lg" type="button">Search</button>
-        </div>
-    </div>
+    <div id="header"></div>
 
-    <div class="row" id="results"></div>
+
+    <div class="row" id="results">
+        <img id="loadingGIF" src="static/loading.gif">
+    </div>
 
     <div id="footer"></div>
 </div>
@@ -42,6 +36,7 @@
     //TODO https://api.datamuse.com/words?sp=b*&max=10 autocomplete api
     $(function () {
         $("#footer").load("footer.html");
+        $("#header").load("header.html");
     });
 
     function call(query) {
@@ -51,6 +46,9 @@
             search = query
         if (search == undefined || search == "")
             return
+
+        document.getElementById("results").innerHTML = '<img id="loadingGIF" src="static/loading.gif">'
+
         // Make an HTTP GET request to the YouTube Data API search endpoint
         var apiKey = ""
         var apiKey1 = 'AIzaSyB5LG4TFaO95eqkE6yRBgJgr0egwSBSy8U'
@@ -79,6 +77,7 @@
                     if (item.id.kind === "youtube#channel") {
                         obj.isChannel = true
                         obj.channelURL = `https://www.youtube.com/channel/${item.id.channelId}`
+                        obj.publishedAt = 'Channel'
                     } else {
                         obj.watch = item.id.videoId
                         obj.videoURL = `https://www.youtube.com/watch?v=${item.id.videoId}`;
@@ -105,11 +104,11 @@
                 var openVideo = "view.html?watch=" + q[x].watch
                 if (!q[x].isChannel) {
 
-                    isVideo = '<a class="text-decoration-none " href="' + q[x].channelURL + '">' + q[x].chTitle + '</a>'
+                    isVideo = 'Channel: <a class="text-decoration-none " target="_blank" href="' + q[x].channelURL + '">' + q[x].chTitle + '</a>'
                     vidLink = '<a class="text-decoration-none " href="' + openVideo + '">' //q[x].videoURL
                     end = "</a>"
                 } else {
-                    chLink = '<a class="text-decoration-none " href=" ' + q[x].channelURL + '">'
+                    chLink = '<a class="text-decoration-none " target="_blank" href=" ' + q[x].channelURL + '">'
                     end = "</a>"
                 }
 
@@ -117,9 +116,11 @@
                 text += '<div class="col mb-4">\n' +
                     '            <div class="card" style="width: 18rem;">\n' +
                     '                ' + vidLink + '<img src="' + q[x].thumbnailUrl + '" class="card-img-top" alt="...">' + end + '\n' +
-                    '                <div class="card-body">\n' +
+                    '                <div class="card-body cb-1">\n' +
+                    '<div>' +
                     '                    ' + vidLink + chLink + '<h5 class="card-title">' + q[x].title + '</h5>' + end + '\n' +
                     isVideo +
+                    '</div>' +
                     '                    <p class="card-text text-end">' + q[x].publishedAt.slice(0, 10) + '</p>\n' +
                     '                </div>\n' +
                     '            </div>\n' +
@@ -133,9 +134,12 @@
         }, 800)
     }
 
-    document.getElementById("bt1").onclick = function () {
-        call()
-    }
+    setTimeout(() => {
+        document.getElementById("bt1").onclick = function () {
+            call()
+        }
+    }, 100)
+
 
     function focusFunc() {
         var input = document.getElementById("searchInput");
@@ -147,8 +151,12 @@
         });
     }
 
+
     // initial call index page
-    call("programming")
+    setTimeout(() => {
+        call("programming")
+    }, 200)
+
 </script>
 <style>
     .hd1 a {
@@ -174,6 +182,16 @@
 
     .green {
         color: #42b883;
+    }
+    .cb-1{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    #loadingGIF{
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 </html>

@@ -18,32 +18,78 @@
 </head>
 <body>
 <div class="container">
-
-
-    <iframe id="player" type="text/html" width="640" height="390"
+<br>
+    <div id="header"></div>
+    <iframe id="player" type="text/html" width="780" height="428"
             src="http://www.youtube.com/embed/M7lc1UVf-VE"
-            frameborder="0"></iframe>
+            frameborder="0" allowfullscreen></iframe>
+    <h3 id="watchTitle"></h3>
+    <h6 id="channelName"></h6>
+    <p>video i channel ke se zemat od queryto</p>
     <br>
-    search strana i suggested videa
+    <p class="bbb">search strana i suggested videa</p>
     <br>
-    Add to queue
+    <p class="bbb">Add to queue</p>
     <br>
-    Ke se zacuvuva vo sessionID
+    <p class="bbb">Ke se zacuvuva vo sessionID</p>
     <div id="footer"></div>
 </div>
 </body>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get('watch');
-    document.getElementById('player').src = 'http://www.youtube.com/embed/' + myParam
+    const watchID = urlParams.get('watch');
+    const title = urlParams.get('title');
+    document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
+    document.getElementById('watchTitle').innerText = "Video Title Here"
+    document.getElementById('channelName').innerText = "Channel Name Here"
 
     $(function () {
         $("#footer").load("footer.html");
+        $("#header").load("header.html");
+
     });
+
+
+    setTimeout(() => {
+
+        var a = document.getElementsByTagName('a');
+
+        for (var idx= 0; idx < a.length; ++idx){
+            console.log(a[idx].className)
+            if(a[idx].className === 'ytp-impression-link'){
+                a[idx].style.display = 'none'
+            }
+        }
+    }, 1500)
 </script>
 <style>
-    .ytp-impression-link, .ytp-impression-link-content {
+    .d-no {
         display: none;
     }
+    .hd1 a {
+        text-decoration: none;
+
+    }
+
+    .hd1 {
+        font-size: 2rem;
+        color: blue;
+        display: contents;
+    }
+
+    .col {
+        text-align: -moz-center;
+        text-align: -webkit-center;
+    }
+
+    .card {
+        text-align: left;
+        height: 100%;
+    }
+
+    .green {
+        color: #42b883;
+    }
+
 </style>
 </html>

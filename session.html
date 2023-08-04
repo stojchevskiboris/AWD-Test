@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Session Example</title>
+</head>
+<body>
+<h1>User Session Example</h1>
+<button onclick="saveSessionId()">Save Session ID</button>
+<button onclick="clearSessionId()">Clear Session ID</button>
+<p id="pID"></p>
+<script>
+    // Function to save the session ID to localStorage
+    function saveSessionId() {
+        const sessionId = generateSessionId();
+        localStorage.setItem('sessionId', sessionId);
+        console.log('Session ID saved:', sessionId);
+        document.getElementById("pID").innerText = 'Session ID saved: ' + sessionId
+    }
+
+    // Function to clear the session ID from localStorage
+    function clearSessionId() {
+        localStorage.removeItem('sessionId');
+        console.log('Session ID cleared.');
+        document.getElementById("pID").innerText = 'Session ID cleared.'
+    }
+
+    // Function to generate a random session ID (you can use any appropriate method to generate the ID)
+    function generateSessionId() {
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let sessionId = '';
+        for (let i = 0; i < 10; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            sessionId += charset[randomIndex];
+        }
+        return sessionId;
+    }
+
+    // Check if there is a saved session ID and display it on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const sessionId = localStorage.getItem('sessionId');
+        if (sessionId) {
+            console.log('Retrieved Session ID:', sessionId);
+            document.getElementById("pID").innerText = 'Retrieved Session ID: ' + sessionId
+        } else {
+            console.log('No Session ID found.');
+            document.getElementById("pID").innerText = 'No Session ID found.'
+        }
+    });
+</script>
+</body>
+</html>
