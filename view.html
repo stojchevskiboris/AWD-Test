@@ -18,64 +18,82 @@
 </head>
 <body>
 <div class="container">
-<br>
+    <br>
     <div id="header"></div>
     <iframe id="player" type="text/html" width="780" height="428"
             src="http://www.youtube.com/embed/M7lc1UVf-VE"
             frameborder="0" allowfullscreen></iframe>
-    <h3 id="watchTitle"></h3>
-    <h6 id="channelName"></h6>
-    <p>video i channel ke se zemat od queryto</p>
+    <h3 class="mt-2" id="watchTitle"></h3>
+    <h6 class="mt-2" id="channelName"></h6>
     <br>
-    <p class="bbb">search strana i suggested videa</p>
-    <br>
-    <p class="bbb">Add to queue</p>
-    <br>
-    <p class="bbb">Ke se zacuvuva vo sessionID</p>
+    <div id="b">
+        <p class="bbb">search strana i suggested videa</p>
+        <p class="bbb">Add to queue</p>
+        <p class="bbb">Ke se zacuvuva vo sessionID</p>
+    </div>
+
     <div id="footer"></div>
 </div>
 </body>
 <script>
+
+    // get query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const watchID = urlParams.get('watch');
     const title = urlParams.get('title');
+    const channelName = urlParams.get('channelName');
+    console.log(watchID)
+    console.log(title)
+    console.log(channelName)
     document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
-    document.getElementById('watchTitle').innerText = "Video Title Here"
-    document.getElementById('channelName').innerText = "Channel Name Here"
+    document.getElementById('watchTitle').innerText = title
+    document.getElementById('channelName').innerText = channelName
 
     $(function () {
         $("#footer").load("footer.html");
         $("#header").load("header.html");
-
     });
 
+    // setTimeout(() => {
+    //     var a = document.getElementsByTagName('a');
+    //     for (var idx= 0; idx < a.length; ++idx){
+    //         console.log(a[idx].className)
+    //         if(a[idx].className === 'ytp-impression-link'){
+    //             a[idx].style.display = 'none'
+    //         }
+    //     }
+    // }, 1500)
 
     setTimeout(() => {
+        // console.log(window.top.document.querySelector('iframe'))
+        var a = document.querySelector('iframe')
+        console.log(a)
+    }, 2500)
 
-        var a = document.getElementsByTagName('a');
+    function call() {
+        document.getElementById('searchInput').blur()
+        var search = document.getElementById('searchInput').value
+        if (search == undefined || search == "")
+            return
+        window.location.href = 'index.html?q=' + search
+    }
 
-        for (var idx= 0; idx < a.length; ++idx){
-            console.log(a[idx].className)
-            if(a[idx].className === 'ytp-impression-link'){
-                a[idx].style.display = 'none'
+    function focusFunc() {
+        var input = document.getElementById("searchInput");
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                call()
             }
-        }
-    }, 1500)
+        });
+    }
+
 </script>
 <style>
     .d-no {
         display: none;
     }
-    .hd1 a {
-        text-decoration: none;
 
-    }
-
-    .hd1 {
-        font-size: 2rem;
-        color: blue;
-        display: contents;
-    }
 
     .col {
         text-align: -moz-center;
@@ -89,6 +107,22 @@
 
     .green {
         color: #42b883;
+    }
+
+    #watchTitle, #channelName {
+        border-bottom: 2px solid dodgerblue;
+        width: fit-content;
+        padding-bottom: 0.2rem;
+    }
+    #channelName {
+        border-bottom: 2px solid mediumpurple;
+    }
+
+
+    #b{
+        font-size: 1.5rem;
+        border: 1px solid gray;
+        padding: 20px;
     }
 
 </style>
