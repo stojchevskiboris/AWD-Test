@@ -93,6 +93,7 @@
                         obj.channelURL = `https://www.youtube.com/channel/${item.id.channelId}`
                         obj.publishedAt = 'Channel'
                     } else { // if item is video
+                        obj.live = item.snippet.liveBroadcastContent
                         obj.watch = item.id.videoId
                         obj.videoURL = `https://www.youtube.com/watch?v=${item.id.videoId}`;
                         obj.channelURL = `https://www.youtube.com/channel/${item.snippet.channelId}`
@@ -124,6 +125,12 @@
                 var isVideo = ""
                 var chLink = ""
                 var openVideo = "view.html?watch=" + q[x].watch
+                var d = q[x].publishedAt.slice(0, 10)
+                var publishedAt = d
+                if (d!='Channel')
+                    publishedAt = d.slice(8,10) + '.' + d.slice(5,7) + '.' + d.slice(0,4)
+                if (q[x].live == 'live')
+                    publishedAt = '<span class="live">Live</span>'
                 if (!q[x].isChannel) {
                     openVideo += "&title=" + q[x].title + "&channelName=" + q[x].chTitle
                     isVideo = 'Channel: <a class="text-decoration-none " target="_blank" href="' + q[x].channelURL + '">' + q[x].chTitle + '</a>'
@@ -143,7 +150,7 @@
                     '                    ' + vidLink + chLink + '<h5 class="card-title">' + q[x].title + '</h5>' + end + '\n' +
                     isVideo +
                     '</div>' +
-                    '                    <p class="card-text text-end">' + q[x].publishedAt.slice(0, 10) + '</p>\n' +
+                    '                    <p class="card-text text-end">' + publishedAt + '</p>\n' +
                     '                </div>\n' +
                     '            </div>\n' +
                     '        </div>'
@@ -220,6 +227,13 @@
         width: 100px;
         margin-left: auto;
         margin-right: auto;
+    }
+    .live{
+        font-weight: bold;
+        border: 2px solid;
+        color: red;
+        padding: 5px 10px 5px 10px;
+        border-radius: 10px;
     }
 </style>
 </html>
