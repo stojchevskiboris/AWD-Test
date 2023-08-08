@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>VueTube</title>
     <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
     <link href="bootstrap/bootstrap-5.3.0.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="bootstrap/bootstrap-5.3.0.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossorigin="anonymous"></script>
-    <script
-            src="bootstrap/jquery-3.3.1.js"
-            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous">
-    </script>
+    <script src="shared.js"></script>
+    <script src="view.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
@@ -35,95 +36,4 @@
     <div id="footer"></div>
 </div>
 </body>
-<script>
-
-    // get query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const watchID = urlParams.get('watch');
-    const title = urlParams.get('title');
-    const channelName = urlParams.get('channelName');
-    console.log(watchID)
-    console.log(title)
-    console.log(channelName)
-    document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
-    document.getElementById('watchTitle').innerText = title
-    document.getElementById('channelName').innerText = channelName
-
-    $(function () {
-        $("#footer").load("footer.html");
-        $("#header").load("header.html");
-    });
-
-    // setTimeout(() => {
-    //     var a = document.getElementsByTagName('a');
-    //     for (var idx= 0; idx < a.length; ++idx){
-    //         console.log(a[idx].className)
-    //         if(a[idx].className === 'ytp-impression-link'){
-    //             a[idx].style.display = 'none'
-    //         }
-    //     }
-    // }, 1500)
-
-    setTimeout(() => {
-        // console.log(window.top.document.querySelector('iframe'))
-        var a = document.querySelector('iframe')
-        console.log(a)
-    }, 2500)
-
-    function call() {
-        document.getElementById('searchInput').blur()
-        var search = document.getElementById('searchInput').value
-        if (search == undefined || search == "")
-            return
-        window.location.href = 'index.html?q=' + search
-    }
-
-    function focusFunc() {
-        var input = document.getElementById("searchInput");
-        input.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                call()
-            }
-        });
-    }
-
-</script>
-<style>
-    .d-no {
-        display: none;
-    }
-
-
-    .col {
-        text-align: -moz-center;
-        text-align: -webkit-center;
-    }
-
-    .card {
-        text-align: left;
-        height: 100%;
-    }
-
-    .green {
-        color: #42b883;
-    }
-
-    #watchTitle, #channelName {
-        border-bottom: 2px solid dodgerblue;
-        width: fit-content;
-        padding-bottom: 0.2rem;
-    }
-    #channelName {
-        border-bottom: 2px solid mediumpurple;
-    }
-
-
-    #b{
-        font-size: 1.5rem;
-        border: 1px solid gray;
-        padding: 20px;
-    }
-
-</style>
 </html>

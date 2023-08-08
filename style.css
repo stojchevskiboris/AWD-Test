@@ -1,0 +1,79 @@
+/*shared*/
+.d-no {
+    display: none;
+}
+.col {
+    text-align: -moz-center;
+    text-align: -webkit-center;
+}
+
+.card {
+    text-align: left;
+    height: 100%;
+}
+
+.green {
+    color: #42b883;
+}
+
+/*index.html*/
+.cb-1 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#loadingGIF {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.live {
+    font-weight: bold;
+    border: 2px solid;
+    color: red;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+}
+
+/*view.html*/
+#watchTitle, #channelName {
+    border-bottom: 2px solid dodgerblue;
+    width: fit-content;
+    padding-bottom: 0.2rem;
+}
+#channelName {
+    border-bottom: 2px solid mediumpurple;
+}
+
+
+#b{
+    font-size: 1.5rem;
+    border: 1px solid gray;
+    padding: 20px;
+}
+
+
+/*header.html*/
+.hd1 a {
+    text-decoration: none;
+    height: fit-content;
+    padding-right:0.5rem!important;
+    padding-left:0.5rem!important;
+    border: 1px solid #0d6efd;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.hd1 a:hover{
+    transition: 0.2s;
+    background-color: #0d6efd;
+    color: white;
+}
+
+
+.hd1 {
+    font-size: 2rem;
+    color: #0d6efd;
+    display: contents;
+}
