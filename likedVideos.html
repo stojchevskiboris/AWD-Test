@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>VueTube</title>
@@ -15,29 +14,23 @@
             crossorigin="anonymous"></script>
     <script src="database/pouchdb-8.0.1.min.js"></script>
     <script src="shared.js"></script>
-    <script src="view.js"></script>
+    <script src="likedVideos.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
     <br>
     <div id="header"></div>
-    <iframe id="player" type="text/html" width="780" height="428"
-            src="http://www.youtube.com/embed/M7lc1UVf-VE"
-            frameborder="0" allowfullscreen></iframe>
-    <h3 class="mt-2 titles"  id="watchTitle"></h3>
-    <h6 class="mt-2 titles"  id="channelName"></h6>
-    <h6 class="mt-2 titles"  id="publishedAt"></h6>
-    <button id="like">Like video</button>
+
+    <h2>Liked Videos</h2>
     <br>
-    <br>
-    <div id="b">
-        <p class="bbb">search strana</p>
-        <p class="bbb">suggested videa</p>
+
+    <div class="row rw2" id="results">
 
     </div>
 
     <div id="footer"></div>
+
 </div>
 </body>
 </html>

@@ -7,7 +7,12 @@ $(function () {
     $("#header").load("header.html");
 });
 
+setTimeout(() => {
+    var offsetHeight = document.getElementById('bt1').offsetHeight;
+    document.getElementById('lvID').style.height = offsetHeight + 'px';
+}, 100)
 
+// generate predictive word
 function inAuto() {
     var predictions = []
     var q = document.getElementById("searchInput").value
@@ -29,10 +34,11 @@ function inAuto() {
     }, 200)
 }
 
+// set autocomplete on input
 function autocomplete(predictions) {
     var btn1 = document.getElementById("bt1")
     $("#searchInput").autocomplete({
-        source:predictions,
+        source: predictions,
         select: function (event, ui) { //ui.item.label
             document.getElementById("searchInput").innerText = ui.item.label
             setTimeout(() => {
@@ -44,8 +50,56 @@ function autocomplete(predictions) {
     })
 }
 
+// Storing user session
+// Function to save the session ID to browser`s localStorage
+function saveSessionId() {
+    const sessionId = generateSessionId();
+    localStorage.setItem('sessionId', sessionId);
+    console.log('Session ID saved:', sessionId);
+}
+
+// Function to clear the session ID from localStorage
+function clearSessionId() {
+    localStorage.removeItem('sessionId');
+    console.log('Session ID cleared.');
+}
+
+// Function to generate a random session ID
+function generateSessionId() {
+    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let sessionId = '';
+    for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        sessionId += charset[randomIndex];
+    }
+    return sessionId;
+}
+
+// Check if there is a saved session ID and display it on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const sessionId = localStorage.getItem('sessionId');
+    if (sessionId) {
+        console.log('Retrieved Session ID:', sessionId);
+    } else {
+        saveSessionId()
+    }
+});
 
 
+// User session using pouchDB
+// Initialization of variables
+var db = new PouchDB('users_db');
+var likedVideos = [] // an array of all liked videos
 
-
+function addVideo(watchID) {
+    var video = {
+        _id: watchID,
+        title: title,
+        channelName: channelName,
+        publishedAt: publishedAt,
+        dateAdded: new Date().toLocaleString(),
+        userSession: localStorage.getItem('sessionId')
+    };
+    db.put(video)
+}
 

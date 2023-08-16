@@ -5,6 +5,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const watchID = urlParams.get('watch');
 const title = urlParams.get('title');
 const channelName = urlParams.get('channelName');
+const publishedAt = urlParams.get('publishedAt');
 console.log(watchID)
 console.log(title)
 console.log(channelName)
@@ -12,6 +13,7 @@ setTimeout(()=>{
     document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
     document.getElementById('watchTitle').innerText = title
     document.getElementById('channelName').innerText = channelName
+    document.getElementById('publishedAt').innerText = 'Published at: '+publishedAt
 },200)
 
 
@@ -38,4 +40,17 @@ function call() {
         return
     window.location.href = 'index.html?q=' + search
 }
+
+
+setTimeout(() => {
+    document.getElementById("like").onclick = function () {
+        console.log("test")
+        addVideo(watchID)
+    }
+}, 100)
+
+db.allDocs({include_docs: true, descending: true}, function (err, doc) {
+    console.log(doc.rows)
+    likedVideos = doc.rows
+});
 //////////////////////////////

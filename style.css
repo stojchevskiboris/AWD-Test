@@ -8,6 +8,7 @@
 }
 
 .card {
+    width: 25rem!important;
     text-align: left;
     height: 100%;
 }
@@ -38,12 +39,12 @@
 }
 
 /*view.html*/
-#watchTitle, #channelName {
+.titles {
     border-bottom: 2px solid dodgerblue;
     width: fit-content;
     padding-bottom: 0.2rem;
 }
-#channelName {
+#channelName, #publishedAt {
     border-bottom: 2px solid mediumpurple;
 }
 
@@ -77,3 +78,9 @@
     color: #0d6efd;
     display: contents;
 }
+
+
+/*likedVideos.html*/
+/*.rw2{*/
+/*    width: 0%;*/
+/*}*/

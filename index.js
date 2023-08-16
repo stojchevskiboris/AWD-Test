@@ -40,7 +40,7 @@ function call(query) {
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=20`) // maxResults=50
         .then(response => response.json())
         .then(data => {
-            // console.log(data)
+            console.log(data)
             // Iterate over the retrieved videos and assign properties for each item
             data.items.forEach((item, i) => {
                 var obj = { // every item
@@ -79,7 +79,7 @@ function call(query) {
     // document.body.querySelector("#test1").appendChild(box)
     // ----------------------------------------------------
     setTimeout(function () {
-        text = ""
+        var text = ""
         for (let x in q) {
             var vidLink = ""
             var end = ""
@@ -88,12 +88,19 @@ function call(query) {
             var openVideo = "view.html?watch=" + q[x].watch
             var d = q[x].publishedAt.slice(0, 10)
             var publishedAt = d
-            if (d != 'Channel')
+            var publishedAtQS = ''
+            if (d != 'Channel'){
                 publishedAt = d.slice(8, 10) + '.' + d.slice(5, 7) + '.' + d.slice(0, 4)
-            if (q[x].live == 'live')
+                publishedAtQS = publishedAt
+            }
+
+            if (q[x].live == 'live'){
                 publishedAt = '<span class="live">Live</span>'
+                publishedAtQS = 'Live'
+            }
+
             if (!q[x].isChannel) {
-                openVideo += "&title=" + q[x].title + "&channelName=" + q[x].chTitle
+                openVideo += "&title=" + q[x].title + "&channelName=" + q[x].chTitle + "&publishedAt=" + publishedAtQS
                 isVideo = 'Channel: <a class="text-decoration-none " target="_blank" href="' + q[x].channelURL + '">' + q[x].chTitle + '</a>'
                 vidLink = '<a class="text-decoration-none " href="' + openVideo + '">' //q[x].videoURL
                 end = "</a>"
