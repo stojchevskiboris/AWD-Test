@@ -37,6 +37,9 @@ setTimeout(function () {
         var id = likedVideos[x].doc._id
         var publishedAt = likedVideos[x].doc.publishedAt
         var channelName = likedVideos[x].doc.channelName
+        var liveClass = ''
+        if (publishedAt == "Live")
+            liveClass = ' live live2 '
         text +=
             '<div class="col mb-4">' +
             '<div class="card" style="width: 20rem">' +
@@ -46,7 +49,7 @@ setTimeout(function () {
             '<div><a class="text-decoration-none" href="view.html?watch='+id+'&amp;title='+title+'&amp;channelName='+channelName+'&amp;publishedAt='+publishedAt+'">'+
             '<h5 class="card-title">The Ugly TRUTH About Programming in 2023 (what you MUST know..)</h5></a>' +
             'Channel: '+channelName+'</div>' +
-            '<p class="card-text text-end">'+publishedAt+'</p>'+
+            '<p class="card-text text-end'+liveClass+'">'+publishedAt+'</p>'+
             '</div>' +
             '</div>' +
             '</div>'

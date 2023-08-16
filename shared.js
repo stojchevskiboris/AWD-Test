@@ -7,10 +7,6 @@ $(function () {
     $("#header").load("header.html");
 });
 
-setTimeout(() => {
-    var offsetHeight = document.getElementById('bt1').offsetHeight;
-    document.getElementById('lvID').style.height = offsetHeight + 'px';
-}, 100)
 
 // generate predictive word
 function inAuto() {
@@ -101,5 +97,24 @@ function addVideo(watchID) {
         userSession: localStorage.getItem('sessionId')
     };
     db.put(video)
+        .then(()=>{
+            setTimeout(()=>{
+                document.getElementById("like").style.display = 'none'
+                document.getElementById("unlike").style.display = 'block'
+            },100)
+        })
+
+
+}
+
+function removeVideo(watchID) {
+    db.get(watchID)
+        .then((x)=>{
+            db.remove(x)
+            setTimeout(()=>{
+                document.getElementById("like").style.display = 'block'
+                document.getElementById("unlike").style.display = 'none'
+            },100)
+        })
 }
 

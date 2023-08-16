@@ -38,6 +38,11 @@
     border-radius: 10px;
 }
 
+.live2{
+    align-self: end;
+    width: fit-content;
+}
+
 /*view.html*/
 .titles {
     border-bottom: 2px solid dodgerblue;
@@ -53,6 +58,10 @@
     font-size: 1.5rem;
     border: 1px solid gray;
     padding: 20px;
+}
+
+#like, #unlike{
+    display: none;
 }
 
 
