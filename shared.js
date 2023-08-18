@@ -8,7 +8,7 @@ $(function () {
 });
 
 
-// generate predictive word
+// generate predictive words
 function inAuto() {
     var predictions = []
     var q = document.getElementById("searchInput").value
@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// User session using pouchDB
-// Initialization of variables
+// User session using pouchDB, initialization of variables
 var db = new PouchDB('users_db');
 var likedVideos = [] // an array of all liked videos
 
+// add video to liked videos
 function addVideo(watchID) {
     var video = {
         _id: watchID,
@@ -107,6 +107,7 @@ function addVideo(watchID) {
 
 }
 
+// remove video from liked videos
 function removeVideo(watchID) {
     db.get(watchID)
         .then((x)=>{
@@ -118,3 +119,17 @@ function removeVideo(watchID) {
         })
 }
 
+
+// set liked videos style
+setTimeout(() => {
+    var h = document.getElementById('searchInput').offsetHeight
+    document.getElementById('likedVids').style.height = h+'px'
+    document.getElementById('likedVids').style.border = '1px solid #0d6efd'
+    console.log(h)
+}, 200)
+
+setTimeout(() => {
+    document.getElementById("likedVids").onclick = function (){
+        window.location.href = 'likedVideos.html'
+    }
+}, 300)

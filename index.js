@@ -1,6 +1,7 @@
 //////////////////////////////
 // index.html ...
 
+// search video function
 function call(query) {
     document.getElementById('searchInput').blur()
     var search = document.getElementById('searchInput').value
@@ -161,6 +162,6 @@ function focusFunc() {
 
 // initial call on first view
 setTimeout(() => {
-    call("programming")
+    call("vue")
 }, 200)
 

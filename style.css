@@ -1,7 +1,16 @@
 /*shared*/
+.container-custom{
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .d-no {
     display: none;
 }
+
 .col {
     text-align: -moz-center;
     text-align: -webkit-center;
@@ -49,10 +58,10 @@
     width: fit-content;
     padding-bottom: 0.2rem;
 }
+
 #channelName, #publishedAt {
     border-bottom: 2px solid mediumpurple;
 }
-
 
 #b{
     font-size: 1.5rem;
@@ -75,12 +84,12 @@
     border-radius: 10px;
     transition: 0.2s;
 }
+
 .hd1 a:hover{
     transition: 0.2s;
     background-color: #0d6efd;
     color: white;
 }
-
 
 .hd1 {
     font-size: 2rem;
@@ -90,6 +99,30 @@
 
 
 /*likedVideos.html*/
+#h1-lv{
+    text-align: center;
+    color: #0d6efd;
+}
+
+#likedVids{
+    width: min-content;
+    /*border: 1px solid #0d6efd;*/
+    border-radius: 10px;
+    transition: 0.2s;
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+
+
+#likedVids:hover{
+    background: #0d6efd;
+    transition: 0.2s;
+    color: white;
+
+}
+
+
 /*.rw2{*/
 /*    width: 0%;*/
 /*}*/

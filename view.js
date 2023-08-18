@@ -9,6 +9,8 @@ const publishedAt = urlParams.get('publishedAt');
 console.log(watchID)
 console.log(title)
 console.log(channelName)
+if (watchID==null)
+    window.location.href = 'index.html'
 setTimeout(() => {
     document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
     document.getElementById('watchTitle').innerText = title
