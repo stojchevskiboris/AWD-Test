@@ -1,94 +1,28 @@
-// view.html ...
+// searchResults.html ...
 
-// get query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const watchID = urlParams.get('watch');
-const title = urlParams.get('title');
-const channelName = urlParams.get('channelName');
-const publishedAt = urlParams.get('publishedAt');
-console.log(watchID)
-console.log(title)
-console.log(channelName)
-if (watchID == null)
-    window.location.href = 'index.html'
-setTimeout(() => {
-    document.getElementById('player').src = 'http://www.youtube.com/embed/' + watchID
-    document.getElementById('watchTitle').innerText = title
-    document.getElementById('channelName').innerText = channelName
-    document.getElementById('publishedAt').innerText = 'Published at: ' + publishedAt
-}, 200)
-
-
-setTimeout(() => {
-    // console.log(window.top.document.querySelector('iframe'))
-    var a = document.querySelector('iframe')
-    // console.log(a)
-}, 2500)
-
-function focusFunc() {
-    var input = document.getElementById("searchInput");
-    input.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            call()
-        }
-    });
-}
-
-function call() {
+// search video function
+function call(query) {
     document.getElementById('searchInput').blur()
     var search = document.getElementById('searchInput').value
+    if (query != undefined)
+        search = query
     if (search == undefined || search == "")
         return
-    window.location.href = 'searchResults.html?q=' + search
-}
 
-
-setTimeout(() => {
-    document.getElementById("like").onclick = function () {
-        console.log("test")
-        addVideo(watchID)
-    }
-}, 100)
-
-setTimeout(() => {
-    document.getElementById("unlike").onclick = function () {
-        console.log("test")
-        removeVideo(watchID)
-    }
-}, 100)
-
-var isLiked = false
-db.get(watchID).then(() => {
-    isLiked = true
-}).catch(() => {
-        isLiked = false
-    }
-)
-setTimeout(() => {
-    if (isLiked) {
-        document.getElementById("unlike").style.display = 'block'
-    } else {
-        document.getElementById("like").style.display = 'block'
-
-    }
-}, 100)
-
-db.allDocs({include_docs: true, descending: true}, function (err, doc) {
-    console.log(doc.rows)
-    likedVideos = doc.rows
-});
-
-
-function callRecommended(query) {
-    // document.getElementById('searchInput').blur()
 
     // set main view to loading screen
     document.getElementById("results").innerHTML = '<img id="loadingGIF" src="static/loading.gif">'
 
 
     // get query parameters if they exist
-    var search = title
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQ = urlParams.get('q');
+    if (searchQ != null) {
+        if (document.getElementById("searchInput").value==''){
+            search = searchQ
+            document.getElementById('searchInput').value = searchQ
+        }
+    }
 
 
     // Make an HTTP GET request to the YouTube Data API search endpoint
@@ -103,7 +37,7 @@ function callRecommended(query) {
         apiKey = apiKey2
     else apiKey = apiKey3
     var q = []
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=11`) // maxResults=50
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=20`) // maxResults=50
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -155,12 +89,12 @@ function callRecommended(query) {
             var d = q[x].publishedAt.slice(0, 10)
             var publishedAt = d
             var publishedAtQS = ''
-            if (d != 'Channel') {
+            if (d != 'Channel'){
                 publishedAt = d.slice(8, 10) + '.' + d.slice(5, 7) + '.' + d.slice(0, 4)
                 publishedAtQS = publishedAt
             }
 
-            if (q[x].live == 'live') {
+            if (q[x].live == 'live'){
                 publishedAt = '<span class="live">Live</span>'
                 publishedAtQS = 'Live'
             }
@@ -176,7 +110,7 @@ function callRecommended(query) {
             }
 
 
-            text += '<div class="col m-4">\n' +
+            text += '<div class="col mb-4">\n' +
                 '            <div class="card" style="width: 18rem;">\n' +
                 '                ' + vidLink + '<img src="' + q[x].thumbnailUrl + '" class="card-img-top" alt="...">' + end + '\n' +
                 '                <div class="card-body cb-1">\n' +
@@ -189,8 +123,7 @@ function callRecommended(query) {
                 '            </div>\n' +
                 '        </div>'
 
-            if (q[x].watch === watchID)
-                text='' // delete recommended video matching same watchID
+
             document.getElementById("results").innerHTML = text
 
         }
@@ -206,9 +139,28 @@ function callRecommended(query) {
     }, 800)
 }
 
+
+// search button click call but with 100ms delay
 setTimeout(() => {
-    callRecommended()
+    document.getElementById("bt1").onclick = function () {
+        call()
+    }
+}, 100)
+
+
+// Enter key usage instead of clicking search button with mouse
+function focusFunc() {
+    var input = document.getElementById("searchInput");
+    input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            call()
+        }
+    });
+}
+
+// Call on first view
+setTimeout(() => {
+    call("programming")
 }, 200)
 
-
-//////////////////////////////

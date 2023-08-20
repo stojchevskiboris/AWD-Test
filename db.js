@@ -46,13 +46,16 @@ function displayTodos() {
     setTimeout(() => {
         for (let x in allTodos) {
             var completed = ""
-            if (allTodos[x].doc.completed)
+            var dno = ""
+            if (allTodos[x].doc.completed){
                 completed = ' completed '
+                dno = ' d-no '
+            }
             text += '<div class="ToDo'+completed+'" todo_id="'+x+'">' +
                 '<p class="todoText">' + allTodos[x].doc.title + '</p>' +
                 '<p class="d-inline-block">' + allTodos[x].doc._id + '</p>' +
                 '<button class="float-end btn btn-danger d-inline-block" onclick="deleteTodo('+x+')">Delete</button>' +
-                '<button class="float-end btn btn-primary me-1 d-inline-block" onclick="completeTodo(\''+allTodos[x].doc._id+'\')">Mark as done</button>' +
+                '<button class="float-end btn btn-primary me-1 d-inline-block'+dno+'" onclick="completeTodo(\''+allTodos[x].doc._id+'\')">Mark as done</button>' +
                 '</div>'
 
             // db.remove(allTodos[x].doc)

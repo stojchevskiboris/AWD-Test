@@ -14,19 +14,23 @@
             crossorigin="anonymous"></script>
     <script src="database/pouchdb-8.0.1.min.js"></script>
     <script src="shared.js"></script>
-    <script src="index.js"></script>
+    <script src="searchResults.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<br>
 <div class="container-custom">
-    <input id="searchInput" onkeyup="inAuto()" type="search" class="form-control form-control-lg" onfocus="focusFunc()"
-           placeholder="Search">
-    <button id="bt1" onclick="call()" class="btn btn-outline-primary btn-lg" type="button">Search</button>
 
-    <br><br><br>
+    <div id="header"></div>
 
-    <p>ova ke e index stranata</p>
+    <div class="row" id="results">
+        <img id="loadingGIF" src="static/loading.gif">
+    </div>
+
+    <div id="footer"></div>
+
 </div>
-
 </body>
+
 </html>
+

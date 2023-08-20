@@ -1,4 +1,3 @@
-//////////////////////////////
 // shared ...
 
 // load header and footer so it`s not hard coded on every view
@@ -123,6 +122,7 @@ function removeVideo(watchID) {
 // set liked videos style
 setTimeout(() => {
     var h = document.getElementById('searchInput').offsetHeight
+    document.getElementById('homeLink').style.height = h+'px'
     document.getElementById('likedVids').style.height = h+'px'
     document.getElementById('likedVids').style.border = '1px solid #0d6efd'
     console.log(h)
