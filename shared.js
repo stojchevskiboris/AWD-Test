@@ -45,18 +45,55 @@ function autocomplete(predictions) {
     })
 }
 
+function inAuto2() {
+    var predictions = []
+    var q = document.getElementById("searchInput2").value
+    if (q === '' || q == null)
+        return
+    var url = `https://api.datamuse.com/words?sp=${q}*&max=10`
+    fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(wordInfo => {
+                predictions.push(wordInfo.word)
+            });
+        })
+
+    setTimeout(() => {
+        autocomplete2(predictions)
+    }, 200)
+}
+
+// set autocomplete on input
+function autocomplete2(predictions) {
+    var btn1 = document.getElementById("bt2")
+    $("#searchInput2").autocomplete({
+        source: predictions,
+        select: function (event, ui) { //ui.item.label
+            document.getElementById("searchInput2").innerText = ui.item.label
+            setTimeout(() => {
+                btn2.click()
+                document.getElementById("searchInput2").blur()
+            }, 200)
+
+        }
+    })
+}
+
 // Storing user session
 // Function to save the session ID to browser`s localStorage
 function saveSessionId() {
     const sessionId = generateSessionId();
     localStorage.setItem('sessionId', sessionId);
-    console.log('Session ID saved:', sessionId);
+    // console.log('Session ID saved:', sessionId);
 }
 
 // Function to clear the session ID from localStorage
 function clearSessionId() {
     localStorage.removeItem('sessionId');
-    console.log('Session ID cleared.');
+    // console.log('Session ID cleared.');
 }
 
 // Function to generate a random session ID
@@ -74,7 +111,7 @@ function generateSessionId() {
 document.addEventListener('DOMContentLoaded', () => {
     const sessionId = localStorage.getItem('sessionId');
     if (sessionId) {
-        console.log('Retrieved Session ID:', sessionId);
+        // console.log('Retrieved Session ID:', sessionId);
     } else {
         saveSessionId()
     }
@@ -96,11 +133,11 @@ function addVideo(watchID) {
         userSession: localStorage.getItem('sessionId')
     };
     db.put(video)
-        .then(()=>{
-            setTimeout(()=>{
+        .then(() => {
+            setTimeout(() => {
                 document.getElementById("like").style.display = 'none'
                 document.getElementById("unlike").style.display = 'block'
-            },100)
+            }, 100)
         })
 
 
@@ -109,12 +146,12 @@ function addVideo(watchID) {
 // remove video from liked videos
 function removeVideo(watchID) {
     db.get(watchID)
-        .then((x)=>{
+        .then((x) => {
             db.remove(x)
-            setTimeout(()=>{
+            setTimeout(() => {
                 document.getElementById("like").style.display = 'block'
                 document.getElementById("unlike").style.display = 'none'
-            },100)
+            }, 100)
         })
 }
 
@@ -122,14 +159,86 @@ function removeVideo(watchID) {
 // set liked videos style
 setTimeout(() => {
     var h = document.getElementById('searchInput').offsetHeight
-    document.getElementById('homeLink').style.height = h+'px'
-    document.getElementById('likedVids').style.height = h+'px'
+    document.getElementById('homeLink').style.height = h + 'px'
+    document.getElementById('likedVids').style.height = h + 'px'
     document.getElementById('likedVids').style.border = '1px solid #0d6efd'
-    console.log(h)
+    // console.log(h)
 }, 200)
 
 setTimeout(() => {
-    document.getElementById("likedVids").onclick = function (){
+    document.getElementById("likedVids").onclick = function () {
         window.location.href = 'likedVideos.html'
     }
 }, 300)
+
+setTimeout(() => {
+    document.getElementById("homeBtn").onclick = function () {
+        window.location.href = 'index.html'
+    }
+}, 300)
+
+
+var dbContrast = new PouchDB('contrast');
+dbContrast.get('contrast')
+    .then((doc) => {
+        // console.log(doc)
+        setContrast(doc.dark)
+    })
+    .catch(() => {
+        dbContrast.put({
+            _id: 'contrast',
+            dark: false
+        })
+    })
+
+function setContrast(dark) {
+    if (dark) {
+        document.body.classList.add("darkTheme")
+        document.body.classList.remove("lightTheme")
+        // console.log(document.getElementById("githubLink").src)
+        document.getElementById("githubLink").src = '/static/githubLight.png'
+        document.getElementById("githubFooter").src = '/static/githubLight.png'
+        document.getElementById("contrastLink").src = '/static/daylight.png'
+        var elements = document.getElementsByClassName("card");
+        $(".card").each(function () {
+            $(this).addClass("dark-bg");
+        });
+    } else {
+        document.body.classList.add("lightTheme")
+        document.body.classList.remove("darkTheme")
+        document.getElementById("githubLink").src = '/static/githubDark.png'
+        document.getElementById("githubFooter").src = '/static/githubDark.png'
+        document.getElementById("contrastLink").src = '/static/darklight.png'
+        $(".card").each(function () {
+            $(this).removeClass("dark-bg");
+        });
+    }
+
+}
+
+setTimeout(() => {
+    document.getElementById("contrastLink").onclick = function () {
+        dbContrast.get('contrast')
+            .then((doc) => {
+                if (doc.dark) {
+                    // console.log("setting to light")
+                    setContrast(!doc.dark)
+                    dbContrast.put({
+                        _id: 'contrast',
+                        _rev: doc._rev,
+                        dark: false
+                    })
+
+                } else {
+                    // console.log("setting to dark")
+                    setContrast(!doc.dark)
+                    dbContrast.put({
+                        _id: 'contrast',
+                        _rev: doc._rev,
+                        dark: true
+                    })
+                }
+            })
+    }
+}, 300)
+

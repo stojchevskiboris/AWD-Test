@@ -40,7 +40,7 @@ function call(query) {
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=20`) // maxResults=50
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             // Iterate over the retrieved videos and assign properties for each item
             data.items.forEach((item, i) => {
                 var obj = { // every item
@@ -126,17 +126,22 @@ function call(query) {
 
             document.getElementById("results").innerHTML = text
 
+
         }
+        dbContrast.get('contrast')
+            .then((doc)=>{
+            setContrast(doc.dark)
+        })
 
         // error prevention timeout call if last one didnt succeed
         setTimeout(() => {
             if (document.getElementById("results").innerHTML === '<img id="loadingGIF" src="static/loading.gif">') {
-                console.log("calling with q: " + search)
+                // console.log("calling with q: " + search)
                 call(search)
             }
-        }, 1500)
+        }, 2000)
 
-    }, 800)
+    }, 1200)
 }
 
 

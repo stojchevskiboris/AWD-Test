@@ -15,12 +15,12 @@ function call() {
     var search = document.getElementById('searchInput').value
     if (search == undefined || search == "")
         return
-    window.location.href = 'index.html?q=' + search
+    window.location.href = 'searchResults.html?q=' + search
 }
 
 // retrieve liked videos
 db.allDocs({include_docs: true, descending: true}, function (err, doc) {
-    console.log(doc.rows)
+    // console.log(doc.rows)
     likedVideos = doc.rows
 });
 
@@ -36,8 +36,13 @@ function deleteAllLikedVideos() {
 // displa
 setTimeout(function () {
     var text = ""
+    if (likedVideos.length == 0){
+        document.getElementById("results").innerHTML = '<h5>You don`t have liked videos</h5>'
+    }
+
     for (let x in likedVideos) {
         var title = likedVideos[x].doc.title
+        // console.log(title)
         var id = likedVideos[x].doc._id
         var publishedAt = likedVideos[x].doc.publishedAt
         var channelName = likedVideos[x].doc.channelName
@@ -51,7 +56,7 @@ setTimeout(function () {
             '<img src="https://img.youtube.com/vi/' + id + '/0.jpg" class="card-img-top" alt="..."></a>' +
             '<div class="card-body cb-1">' +
             '<div><a class="text-decoration-none" href="view.html?watch=' + id + '&amp;title=' + title + '&amp;channelName=' + channelName + '&amp;publishedAt=' + publishedAt + '">' +
-            '<h5 class="card-title">The Ugly TRUTH About Programming in 2023 (what you MUST know..)</h5></a>' +
+            '<h5 class="card-title">'+title+'</h5></a>' +
             'Channel: ' + channelName + '</div>' +
             '<p class="card-text text-end' + liveClass + '">' + publishedAt + '</p>' +
             '</div>' +
@@ -62,11 +67,15 @@ setTimeout(function () {
         document.getElementById("results").innerHTML = text
 
     }
+    dbContrast.get('contrast')
+        .then((doc)=>{
+            setContrast(doc.dark)
+        })
 
     // error prevention timeout call if last one didnt succeed
     setTimeout(() => {
         if (document.getElementById("results").innerHTML === '<img id="loadingGIF" src="static/loading.gif">') {
-            console.log("calling with q: " + search)
+            // console.log("calling with q: " + search)
             call(search)
         }
     }, 1500)

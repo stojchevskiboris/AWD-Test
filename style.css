@@ -1,5 +1,61 @@
 /*shared*/
-.container-custom{
+.darkTheme{
+    background-color: #000339;
+    color: white;
+}
+
+.lightTheme{
+    background-color: white;
+    color: black;
+}
+
+.dark-bg{
+    background-color: #5b5b5b!important;
+    color: white!important;
+}
+
+.dark-bg a{
+    color: white!important;
+    text-decoration: underline;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mh-65{
+    min-height: 65vh;
+}
+
+.logo-image {
+    max-width: 40px; /* Set the maximum width of the logo image */
+    max-height: 40px; /* Set the maximum height of the logo image */
+}
+
+.logo-image-2 {
+    max-width: 100px; /* Set the maximum width of the logo image */
+    max-height: 100px;
+}
+
+.bigger-input {
+    height: 50px;
+    width: 600px;
+}
+
+#homeBtn, #contrastLink {
+    cursor: pointer;
+}
+
+.text-align-center {
+    text-align-last: center;
+}
+
+.container-custom {
     width: 100%;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -8,7 +64,7 @@
 }
 
 .d-no {
-    display: none!important;
+    display: none !important;
 }
 
 .col {
@@ -17,7 +73,7 @@
 }
 
 .card {
-    width: 25rem!important;
+    width: 25rem !important;
     text-align: left;
     height: 100%;
 }
@@ -25,6 +81,7 @@
 .green {
     color: #42b883;
 }
+
 
 /*index.html*/
 .cb-1 {
@@ -47,10 +104,11 @@
     border-radius: 10px;
 }
 
-.live2{
+.live2 {
     align-self: end;
     width: fit-content;
 }
+
 
 /*view.html*/
 .titles {
@@ -63,13 +121,11 @@
     border-bottom: 2px solid mediumpurple;
 }
 
-
-
-#like, #unlike{
+#like, #unlike {
     display: none;
 }
 
-#main{
+#main {
     text-align-last: center;
 }
 
@@ -78,14 +134,14 @@
 .hd1 a {
     text-decoration: none;
     height: fit-content;
-    padding-right:0.5rem!important;
-    padding-left:0.5rem!important;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
     border: 1px solid #0d6efd;
     border-radius: 10px;
     transition: 0.2s;
 }
 
-.hd1 a:hover{
+.hd1 a:hover {
     transition: 0.2s;
     background-color: #0d6efd;
     color: white;
@@ -99,12 +155,12 @@
 
 
 /*likedVideos.html*/
-#h1-lv{
+#h1-lv {
     text-align: center;
     color: #0d6efd;
 }
 
-#likedVids{
+#likedVids {
     width: min-content;
     /*border: 1px solid #0d6efd;*/
     border-radius: 10px;
@@ -113,16 +169,9 @@
     cursor: pointer;
 }
 
-
-
-#likedVids:hover{
+#likedVids:hover {
     background: #0d6efd;
     transition: 0.2s;
     color: white;
 
 }
-
-
-/*.rw2{*/
-/*    width: 0%;*/
-/*}*/

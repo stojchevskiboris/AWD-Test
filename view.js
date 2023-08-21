@@ -6,9 +6,9 @@ const watchID = urlParams.get('watch');
 const title = urlParams.get('title');
 const channelName = urlParams.get('channelName');
 const publishedAt = urlParams.get('publishedAt');
-console.log(watchID)
-console.log(title)
-console.log(channelName)
+// console.log(watchID)
+// console.log(title)
+// console.log(channelName)
 if (watchID == null)
     window.location.href = 'index.html'
 setTimeout(() => {
@@ -46,14 +46,14 @@ function call() {
 
 setTimeout(() => {
     document.getElementById("like").onclick = function () {
-        console.log("test")
+        // console.log("test")
         addVideo(watchID)
     }
 }, 100)
 
 setTimeout(() => {
     document.getElementById("unlike").onclick = function () {
-        console.log("test")
+        // console.log("test")
         removeVideo(watchID)
     }
 }, 100)
@@ -72,10 +72,10 @@ setTimeout(() => {
         document.getElementById("like").style.display = 'block'
 
     }
-}, 100)
+}, 400)
 
 db.allDocs({include_docs: true, descending: true}, function (err, doc) {
-    console.log(doc.rows)
+    // console.log(doc.rows)
     likedVideos = doc.rows
 });
 
@@ -106,7 +106,7 @@ function callRecommended(query) {
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}&maxResults=11`) // maxResults=50
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             // Iterate over the retrieved videos and assign properties for each item
             data.items.forEach((item, i) => {
                 var obj = { // every item
@@ -198,7 +198,7 @@ function callRecommended(query) {
         // error prevention timeout call if last one didnt succeed
         setTimeout(() => {
             if (document.getElementById("results").innerHTML === '<img id="loadingGIF" src="static/loading.gif">') {
-                console.log("calling with q: " + search)
+                // console.log("calling with q: " + search)
                 call(search)
             }
         }, 1500)

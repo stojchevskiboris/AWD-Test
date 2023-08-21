@@ -13,14 +13,14 @@
     function saveSessionId() {
         const sessionId = generateSessionId();
         localStorage.setItem('sessionId', sessionId);
-        console.log('Session ID saved:', sessionId);
+        // console.log('Session ID saved:', sessionId);
         document.getElementById("pID").innerText = 'Session ID saved: ' + sessionId
     }
 
     // Function to clear the session ID from localStorage
     function clearSessionId() {
         localStorage.removeItem('sessionId');
-        console.log('Session ID cleared.');
+        // console.log('Session ID cleared.');
         document.getElementById("pID").innerText = 'Session ID cleared.'
     }
 
@@ -39,10 +39,10 @@
     document.addEventListener('DOMContentLoaded', () => {
         const sessionId = localStorage.getItem('sessionId');
         if (sessionId) {
-            console.log('Retrieved Session ID:', sessionId);
+            // console.log('Retrieved Session ID:', sessionId);
             document.getElementById("pID").innerText = 'Retrieved Session ID: ' + sessionId
         } else {
-            console.log('No Session ID found.');
+            // console.log('No Session ID found.');
             document.getElementById("pID").innerText = 'No Session ID found.'
         }
     });

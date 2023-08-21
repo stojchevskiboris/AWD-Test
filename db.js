@@ -38,7 +38,7 @@ function completeTodo(i){
 // display ToDos
 function displayTodos() {
     db.allDocs({include_docs: true, descending: true}, function (err, doc) {
-        console.log(doc.rows)
+        // console.log(doc.rows)
         allTodos = doc.rows
     });
 
