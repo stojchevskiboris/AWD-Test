@@ -1,4 +1,3 @@
-window.onload = () => {
 // shared ...
 
 // load header and footer so it`s not hard coded on every view
@@ -6,7 +5,6 @@ window.onload = () => {
         $("#footer").load("footer.html");
         $("#header").load("header.html");
     });
-
 
 // generate predictive words
     function inAuto() {
@@ -123,38 +121,6 @@ window.onload = () => {
     var db = new PouchDB('users_db');
     var likedVideos = [] // an array of all liked videos
 
-// add video to liked videos
-    function addVideo(watchID) {
-        var video = {
-            _id: watchID,
-            title: title,
-            channelName: channelName,
-            publishedAt: publishedAt,
-            dateAdded: new Date().toLocaleString(),
-            userSession: localStorage.getItem('sessionId')
-        };
-        db.put(video)
-            .then(() => {
-                setTimeout(() => {
-                    document.getElementById("like").style.display = 'none'
-                    document.getElementById("unlike").style.display = 'block'
-                }, 100)
-            })
-
-
-    }
-
-// remove video from liked videos
-    function removeVideo(watchID) {
-        db.get(watchID)
-            .then((x) => {
-                db.remove(x)
-                setTimeout(() => {
-                    document.getElementById("like").style.display = 'block'
-                    document.getElementById("unlike").style.display = 'none'
-                }, 100)
-            })
-    }
 
 
 // set liked videos style
@@ -245,4 +211,3 @@ window.onload = () => {
     }, 300)
 
 
-}

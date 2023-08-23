@@ -115,6 +115,7 @@
     border-bottom: 2px solid dodgerblue;
     width: fit-content;
     padding-bottom: 0.2rem;
+    text-align-last: left;
 }
 
 #channelName, #publishedAt {
