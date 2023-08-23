@@ -196,6 +196,7 @@ function setContrast(dark) {
         document.body.classList.add("darkTheme")
         document.body.classList.remove("lightTheme")
         // console.log(document.getElementById("githubLink").src)
+        // '/src/app/static/githubDark.png'
         document.getElementById("githubLink").src = '/static/githubLight.png'
         document.getElementById("githubFooter").src = '/static/githubLight.png'
         document.getElementById("contrastLink").src = '/static/daylight.png'
