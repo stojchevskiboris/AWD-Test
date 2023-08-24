@@ -162,11 +162,14 @@
         if (dark) {
             document.body.classList.add("darkTheme")
             document.body.classList.remove("lightTheme")
+            document.getElementById("searchInput").classList.add("fc-dark")
+            // document.getElementById("searchInput2").classList.add("fc-dark")
             // console.log(document.getElementById("githubLink").src)
             // '/src/app/static/githubDark.png'
-            document.getElementById("githubLink").src = '/static/githubLight.png'
-            document.getElementById("githubFooter").src = '/static/githubLight.png'
-            document.getElementById("contrastLink").src = '/static/daylight.png'
+            document.getElementById("githubLink").src = 'static/githubLight.png'
+            document.getElementById("githubFooter").src = 'static/githubLight.png'
+            document.getElementById("contrastLink").src = 'static/daylight.png'
+
             var elements = document.getElementsByClassName("card");
             $(".card").each(function () {
                 $(this).addClass("dark-bg");
@@ -174,9 +177,11 @@
         } else {
             document.body.classList.add("lightTheme")
             document.body.classList.remove("darkTheme")
-            document.getElementById("githubLink").src = '/static/githubDark.png'
-            document.getElementById("githubFooter").src = '/static/githubDark.png'
-            document.getElementById("contrastLink").src = '/static/darklight.png'
+            document.getElementById("searchInput").classList.remove("fc-dark")
+            // document.getElementById("searchInput2").classList.remove("fc-dark")
+            document.getElementById("githubLink").src = 'static/githubDark.png'
+            document.getElementById("githubFooter").src = 'static/githubDark.png'
+            document.getElementById("contrastLink").src = 'static/darklight.png'
             $(".card").each(function () {
                 $(this).removeClass("dark-bg");
             });

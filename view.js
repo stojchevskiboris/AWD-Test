@@ -195,6 +195,10 @@ window.onload = () => {
                 document.getElementById("results").innerHTML = text
 
             }
+            dbContrast.get('contrast')
+                .then((doc) => {
+                    setContrast(doc.dark)
+                })
 
             // error prevention timeout call if last one didnt succeed
             setTimeout(() => {
@@ -251,6 +255,7 @@ window.onload = () => {
                 }, 100)
             })
     }
+
 
 //////////////////////////////
 }

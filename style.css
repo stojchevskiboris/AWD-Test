@@ -19,6 +19,22 @@
     text-decoration: underline;
 }
 
+.fc-dark{
+    color: white;
+    background-color: #707070 !important;
+}
+.fc-dark:focus{
+    color: white;
+    background-color: #707070!important;
+}
+
+.fc-custom{
+    background-color: #d3d3d3!important;
+}
+.fc-custom:focus{
+    background-color: #d3d3d3!important;
+}
+
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
